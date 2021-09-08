@@ -28,6 +28,9 @@ ign_pkg_config_entry(IgnProtobuf "protobuf >= ${IgnProtobuf_FIND_VERSION}")
 
 find_package(Protobuf ${IgnProtobuf_FIND_VERSION} QUIET CONFIG)
 
+# Enable the use of the macro PROTOBUF_GENERATE_CPP
+set(protobuf_MODULE_COMPATIBLE ON)
+
 if(NOT ${Protobuf_FOUND})
   # If a config-file was not found, then fall back on the system-installed
   # find-module that comes with CMake.
