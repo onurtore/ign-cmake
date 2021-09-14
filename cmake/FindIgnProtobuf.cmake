@@ -26,9 +26,12 @@
 include(IgnPkgConfig)
 ign_pkg_config_entry(IgnProtobuf "protobuf >= ${IgnProtobuf_FIND_VERSION}")
 
-find_package(Protobuf ${IgnProtobuf_FIND_VERSION} QUIET CONFIG)
+message(STATUS "DEBUG protobuf_MODULE_COMPATIBLE: ${protobuf_MODULE_COMPATIBLE}")
+set(protobuf_MODULE_COMPATIBLE TRUE)
+find_package(Protobuf ${IgnProtobuf_FIND_VERSION} CONFIG)
 
 if(NOT ${Protobuf_FOUND})
+  message(STATUS "DEBUG: Protobuf CONFIG NOT FOUND")
   # If a config-file was not found, then fall back on the system-installed
   # find-module that comes with CMake.
   find_package(Protobuf ${IgnProtobuf_FIND_VERSION})
