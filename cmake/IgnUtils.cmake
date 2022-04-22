@@ -1033,13 +1033,6 @@ function(ign_create_core_library)
 
   # Support "gz-"
   if(${PROJECT_LIBRARY_TARGET_NAME} MATCHES "^gz-")
-    _ign_add_library_or_component(
-      LIB_NAME ${PROJECT_LIBRARY_TARGET_NAME}
-      INCLUDE_DIR "${PROJECT_INCLUDE_DIR}"
-      EXPORT_BASE GZ_${IGN_DESIGNATION_UPPER}
-      SOURCES ${sources}
-      ${interface_option})
-
     # For ticktocking: Export an "ignition-" target as well, allowing linking against
     # the ignition- prefixed name
     # TODO(CH3): To remove on tock
@@ -1072,6 +1065,12 @@ function(ign_create_core_library)
       set(project_pkgconfig_core_lib "-l${IGN_PROJECT_NAME_LOWER}")
     endif()
 
+    _ign_add_library_or_component(
+      LIB_NAME ${PROJECT_LIBRARY_TARGET_NAME}
+      INCLUDE_DIR "${PROJECT_INCLUDE_DIR}"
+      EXPORT_BASE IGNITION_${IGN_DESIGNATION_UPPER}
+      SOURCES ${sources}
+      ${interface_option})
   else()
     _ign_add_library_or_component(
       LIB_NAME ${PROJECT_LIBRARY_TARGET_NAME}
@@ -1590,7 +1589,6 @@ macro(_ign_add_library_or_component)
 
   #------------------------------------
   # Configure the installation of the target
-
   install(
     TARGETS ${lib_name}
     EXPORT ${lib_name}
